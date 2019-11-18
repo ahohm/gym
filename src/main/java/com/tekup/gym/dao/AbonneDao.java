@@ -10,7 +10,5 @@ import java.util.List;
 
 @Repository
 public interface AbonneDao  extends JpaRepository<Abonne, Integer> {
-
     Abonne findAbonneByCinEquals(String cin);
-
 }

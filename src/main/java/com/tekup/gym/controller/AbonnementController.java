@@ -41,9 +41,9 @@ public class AbonnementController {
 
     @PostMapping("/add/{abonneId}/{categoryId}")
     public ResponseEntity<Abonnement> addAbonnement(@RequestBody Abonnement abonnement, @PathVariable int abonneId, @PathVariable int categoryId){
-//        Optional<Abonne> abonne = abonneService.getOneSubscriberById(abonneId);
-//        Optional<Category> category = categoryService.getOneCategoryById(categoryId);
-//        Abonnement abonnement1 = new Abonnement(abonne, category, abonnement.getStartDate(), abonnement.getEndDate());
+        Optional<Abonne> abonne = abonneService.getOneSubscriberById(abonneId);
+        Optional<Category> category = categoryService.getOneCategoryById(categoryId);
+        Abonnement abonnement1 = new Abonnement(abonne.get(), category.get(), abonnement.getStartDate(), abonnement.getEndDate());
         return new ResponseEntity(abonnementService.addNewAbonnement(abonnement), HttpStatus.OK);
     }
 
