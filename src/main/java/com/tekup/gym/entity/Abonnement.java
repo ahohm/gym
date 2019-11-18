@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -15,10 +14,11 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 @Entity
-public class Abonnement implements Serializable {
+public class Abonnement {
 
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @ManyToOne
@@ -32,7 +32,14 @@ public class Abonnement implements Serializable {
     private LocalDate startDate;
     private LocalDate endDate;
 
-    @OneToMany
-    private List<Descipline> desciplineList;
+    public Abonnement(Abonne abonne, Category category, LocalDate startDate, LocalDate endDate) {
+        this.abonne = abonne;
+        this.category = category;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    //    @OneToMany
+//    private List<Descipline> desciplineList;
 
 }

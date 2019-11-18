@@ -1,30 +1,29 @@
 package com.tekup.gym.controller;
 
-
-import com.tekup.gym.entity.Abonne;
-import com.tekup.gym.service.AbonneService;
+import com.tekup.gym.entity.Category;
+import com.tekup.gym.service.CategoryService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@RestController
-@RequestMapping("/abonne")
-public class AbonneController {
 
-    private AbonneService abonneService;
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@RestController
+@RequestMapping("/category")
+public class CategoryController {
+
+    private CategoryService categoryService;
 
     @GetMapping
-    public ResponseEntity<Abonne> getAll(){
+    public ResponseEntity<Category> getAll(){
         try {
-            return new ResponseEntity(abonneService.getAllSibscriber(), HttpStatus.OK);
+            return new ResponseEntity(categoryService.getAllCategory(), HttpStatus.OK);
         }
         catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -32,9 +31,9 @@ public class AbonneController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Abonne>> findOne(@PathVariable int id){
+    public ResponseEntity<Optional<Category>> findOne(@PathVariable int id){
         try {
-            return new ResponseEntity(abonneService.getOneSubscriberById(id), HttpStatus.OK);
+            return new ResponseEntity(categoryService.getOneCategoryById(id), HttpStatus.OK);
         }
         catch (Exception e){
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -44,7 +43,7 @@ public class AbonneController {
     @DeleteMapping("/{id}")
     public ResponseEntity deleteOne(@PathVariable int id){
         try {
-            abonneService.deleteSubscriberById(id);
+            categoryService.deleteCategoryById(id);
             return  new ResponseEntity(HttpStatus.ACCEPTED);
         }
         catch (Exception e){
@@ -53,9 +52,9 @@ public class AbonneController {
     }
 
     @PostMapping("add")
-    public ResponseEntity<Abonne> addNewSubscriber(@RequestBody Abonne abonne){
+    public ResponseEntity<Category> addNewSubscriber(@RequestBody Category Category){
         try {
-            return new ResponseEntity(abonneService.addNewSubscriber(abonne),HttpStatus.CREATED);
+            return new ResponseEntity(categoryService.addNewCategory(Category),HttpStatus.CREATED);
         }
         catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -63,18 +62,13 @@ public class AbonneController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateSubscriber(@PathVariable int id, @RequestBody Abonne abonne){
+    public ResponseEntity updateSubscriber(@PathVariable int id, @RequestBody Category Category){
         try{
-            return new ResponseEntity(abonneService.updateSubscriber(id, abonne),HttpStatus.ACCEPTED);
+            return new ResponseEntity(categoryService.updateCategory(id, Category),HttpStatus.ACCEPTED);
         }
         catch (Exception e){
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @GetMapping("/findByCin/{cin}")
-    public ResponseEntity<Abonne> findCin(@PathVariable String cin){
-        return new ResponseEntity(abonneService.findByCin(cin), HttpStatus.OK);
-    }
 }
-
